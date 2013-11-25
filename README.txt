@@ -1,0 +1,28 @@
+
+#Introduction
+It's a Read simulator.
+			
+Ref:		|---------------------|****|---------|	*******  |-----------------|
+SimRef:		|---------------------|	***|---------|***********|-----------------|
+		|		         
+convert pos in SimRef to Ref
+if simPos in non_eventRegion:
+	refPos = RefStart -(SimStart - simPos)
+if simPos in eventRegion:
+	if event == DEL:
+		refPos = LastRefEnd
+	elif event == INS:
+		refPos = LastRefEnd 	
+
+#Tools
+#main tools
+1. VCF to variants format					[VCF2DSM.py]
+2. ref + variants ===> sim_genome + sim_ann			[build_genome.py]
+3. split sim_genome into reads					[wgsim]
+4. replace sim_genome pos in read name with ref pos		[simPos2Ref.py]
+5. check whether ref pos is correct		   		[checkAnswer.py]
+
+#extra Tools
+1. show the variants region seq in Ref and SimGenome		[showDiff.py]
+2. filter overlap variants					[filter_oevrlap_var.py]
+
