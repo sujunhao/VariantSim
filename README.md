@@ -1,6 +1,6 @@
-
 #1. Introduction
-It's a Read simulatte tookit.
+It's a read simulate tookit.
+The basic idea comes from [donorsim](https://code.google.com/p/donorsim/).
 
 convert pos in SimRef to Ref
 	
