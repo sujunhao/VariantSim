@@ -2,7 +2,8 @@ import sys
 import bisect
 import read_ann
 from readfq import readfq
-
+#convert wgsim sim fastq to sim pos  
+#awk '/@/{split(substr($0,2), a, "_");print a[1], a[2], a[3] }' read.fq
 
 def createPosMap(ann, posRefStart, posRefEnd, posSimStart, posSimEnd):
     '''create postion map'''
@@ -116,17 +117,17 @@ def simPos2Ref( chrom, posInSim,
 
 #INPUT: read.fq ann
 usage = \
-    'simPos2Ref.py <Read1.fq> <Read2.fq> <Ann> <ConvertCoordinateNamePrefix>'
+    'simPos2Ref.py <Read1.fq> <Read2.fq> <SimPosAns> <Ann> <ConvertCoordinateNamePrefix>'
 if __name__ == '__main__':
     if len(sys.argv) < 4:
         print >>sys.stderr, usage
         sys.exit(1)
     fp_in_r1 = open(sys.argv[1], 'r')
     fp_in_r2 = open(sys.argv[2], 'r')
-    fp_ann = open(sys.argv[3], 'r')
-    fp_out_r1 = open(sys.argv[4] + '1.fq', 'w')
-    fp_out_r2 = open(sys.argv[4] + '2.fq', 'w')
-    fp_ans = open(sys.argv[4] + '.ans', 'w')
+    fp_ann = open(sys.argv[4], 'r')
+    fp_out_r1 = open(sys.argv[5] + '1.fq', 'w')
+    fp_out_r2 = open(sys.argv[5] + '2.fq', 'w')
+    fp_ans = open(sys.argv[5] + '.ans', 'w')
     #Read Ann
     posRefStart, posSimStart, posRefEnd, posSimEnd = {}, {}, {}, {}
     for line in fp_ann:
@@ -135,29 +136,27 @@ if __name__ == '__main__':
         #print posRefEnd, posSimEnd
     #convert read1
     tot_num = 0
+    fp_simPos = open(sys.argv[3], 'r')
+
     for name, seq, qual in readfq(fp_in_r1):
-        words = name.split('_')
-        chrom = words[0]
-        simPos0 = int(words[1])
-        simPos1 = int(words[2])
+        line = fp_simPos.readline().strip()
+        chrom, simPos0, simPos1 = line.split()
+        simPos0, simPos1 = int(simPos0), int(simPos1)
         refPos0 = simPos2Ref(chrom, simPos0,
                              posRefStart, posRefEnd,
                              posSimStart, posSimEnd, fp_ans)
         refPos1 = simPos2Ref(chrom, simPos1,
                              posRefStart, posRefEnd,
                              posSimStart, posSimEnd, fp_ans)
-        words[1], words[2] = str(refPos0), str(refPos1)
-        name = ''
-        for i in words:
-            name += i + '_'
-        name = name.rstrip('_')
+        name = chrom+'_'+str(refPos0)+'_'+str(refPos1)+'/1'
 
-        if qual is not None:
+
+        if qual is not None: #fastq
             print >>fp_out_r1, '@'+name
             print >>fp_out_r1, seq
             print >>fp_out_r1, '+'
             print >>fp_out_r1, qual
-        else:
+        else:#fasta
             print >>fp_out_r1, '>'+name
             print >>fp_out_r1, seq
         tot_num += 1
@@ -165,23 +164,22 @@ if __name__ == '__main__':
             print >>sys.stderr, '%d reads has been converted' % (tot_num)
     print >>sys.stderr, '%d reads has been converted in file %s' %\
                         (tot_num, sys.argv[1])
+
+    fp_simPos.close()
+    
+    fp_simPos = open(sys.argv[3], 'r')
     tot_num = 0
     for name, seq, qual in readfq(fp_in_r2):
-        words = name.split('_')
-        chrom = words[0]
-        simPos0 = int(words[1])
-        simPos1 = int(words[2])
+        line = fp_simPos.readline().strip()
+        chrom, simPos0, simPos1 = line.split()
+        simPos0, simPos1 = int(simPos0), int(simPos1)
         refPos0 = simPos2Ref(chrom, simPos0,
                              posRefStart, posRefEnd,
                              posSimStart, posSimEnd, fp_ans)
         refPos1 = simPos2Ref(chrom, simPos1,
                              posRefStart, posRefEnd,
                              posSimStart, posSimEnd, fp_ans)
-        words[1], words[2] = str(refPos0), str(refPos1)
-        name = ''
-        for i in words:
-            name += i + '_'
-        name = name.rstrip('_')
+        name = chrom+'_'+str(refPos0)+'_'+str(refPos1)+'/2'
         if qual is not None:
             print >>fp_out_r2, '@'+name
             print >>fp_out_r2, seq
@@ -195,6 +193,8 @@ if __name__ == '__main__':
             print >>sys.stderr, '%d reads has been converted' % (tot_num)
     print >>sys.stderr, '%d reads has been converted in file %s' %\
                         (tot_num, sys.argv[2])
+    fp_simPos.close()
+
 
     fp_in_r1.close()
     fp_in_r2.close()

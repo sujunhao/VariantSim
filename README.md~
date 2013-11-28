@@ -1,6 +1,6 @@
 #1. Introduction
 It's a read simulate tookit.
-The basic idea comes from [donorsim](https://code.google.com/p/donorsim/).
+
 
 convert pos in SimRef to Ref
 	
@@ -25,7 +25,6 @@ ID |  Description										|  Src
 3  |  split sim_genome into reads  						|  [wgsim]
 4  |  replace sim_genome pos in read name with ref pos  |  [simPos2Ref.py]
 5  |  check whether ref pos is correct  				|  [checkAnswer.py]
-6  |  divide variants doc into two files and each file respents one copy |  [diploid.py]
 
 ##2.2 Extra Tools
 

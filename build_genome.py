@@ -1,16 +1,18 @@
 import sys
 from readfq import readfq
+
+
 class var():
     def __init__(self, line):
         if len(line) == 0:
-            return (None,None,None,None,None,None,None)
+            return (None, None, None, None, None, None, None)
         words = line.strip().split('\t')
-        self.chr, self.type, self.HOM_HET, self.seq= words[0], words[4], words[5], words[6]
-        self.pos_start, self.pos_end, self.len = int(words[1]), int(words[2]), int(words[3])
-#Variants.txt and Ref should be sorted by chrom
-#Note Variatnts.txt
-#chrom  pos_start pos_end variant_len variant_type HOM/HET seq
-        
+        self.chr, self.type, self.HOM_HET, self.seq = words[0], words[4], words[5], words[6]
+        self.pos_start, self.pos_end, self.len = int(words[1]), int(words[2]),\
+                                                 int(words[3])
+# Variants.txt and Ref should be sorted by chrom
+# Note Variatnts.txt
+# chrom  pos_start pos_end variant_len variant_type HOM/HET seq
 
 usage = 'build_genome <Ref> <Variants.txt> <Prefix.out>'
 if __name__ == '__main__':
@@ -22,13 +24,12 @@ if __name__ == '__main__':
     fp_var = open(sys.argv[2], 'r')
     fp_sim_genome = open(sys.argv[3]+".sim_genome.fa", 'w')
     fp_sim_ann = open(sys.argv[3]+".sim_ann", 'w')
-    
     sim_genome = ''
 
     cur_var = None
     line = fp_var.readline().strip()
-    if len(line) ==0:
-        print >>sys.stderr, "File %s is empty"%(sys.argv[2])
+    if len(line) == 0:
+        print >>sys.stderr, "File %s is empty" % (sys.argv[2])
         sys.exit(1)
     cur_var = var(line)
     for chrom, seq, qual in readfq(fp_ref):
@@ -38,17 +39,17 @@ if __name__ == '__main__':
         non_variant_region_end = 1
         sim_start = -1
         sim_end = -1
-        while cur_var.chr == chrom: 
+        while cur_var.chr == chrom:
             non_variant_region_end = cur_var.pos_start
 
             if cur_var.type == 'SNV' or cur_var.type == 'SNP':
-                sim_genome += seq[non_variant_region_start-1:non_variant_region_end]+cur_var.seq
+                sim_genome += seq[non_variant_region_start-1:non_variant_region_end] + cur_var.seq
                 sim_genome_len += non_variant_region_end - non_variant_region_start +1 +1
                 print >>sys.stderr, '>Ref_%d_%d\n%s'%(non_variant_region_start-1, non_variant_region_end+1, seq[non_variant_region_start-1:non_variant_region_end+1])
                 print >>sys.stderr, '@Sim SNP\n%s'%(seq[non_variant_region_start-1:non_variant_region_end]+cur_var.seq)
 
                 #print >>fp_sim_ann, "%s\t%d\t%d"%(line, sim_genome_len - 1, sim_genome_len+1)
-            elif cur_var.type == 'INS': 
+            elif cur_var.type == 'INS':
                 sim_genome += seq[non_variant_region_start-1:non_variant_region_end]+cur_var.seq
                 sim_genome_len += non_variant_region_end - non_variant_region_start +1+cur_var.len
                 print >>sys.stderr, '>Ref_%d_%d\n%s'%(non_variant_region_start-1, non_variant_region_end,seq[non_variant_region_start-1:non_variant_region_end])
@@ -63,11 +64,11 @@ if __name__ == '__main__':
             elif cur_var.type == 'MERGE_INDEL':
                 pass
             else:
-                print >>sys.stderr, 'unknown variant type %s' %(cur_var.type)
+                print >>sys.stderr, 'unknown variant type %s' % (cur_var.type)
             non_variant_region_start = cur_var.pos_end
 
             line = fp_var.readline().strip()
-            if len(line) ==0:
+            if len(line) == 0:
                 break
             cur_var = var(line)
         #output sim genome 70 chars per line
@@ -77,7 +78,7 @@ if __name__ == '__main__':
             print >>fp_sim_genome, sim_genome[i:i+70]
             i += 70
         if i != sim_genome_len:
-            print >>fp_sim_genome, sim_genome[i:] 
+            print >>fp_sim_genome, sim_genome[i:]
     fp_sim_genome.close()
     fp_sim_ann.close()
     fp_ref.close()

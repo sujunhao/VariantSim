@@ -121,7 +121,8 @@ body{font-size:16px;}
   h2, h3 { page-break-after: avoid; }
 }
 </style><title>README</title></head><body><h1 id="1-introduction">1. Introduction</h1>
-<p>It's a Read simulatte tookit.</p>
+<p>It's a read simulate tookit.
+The basic idea is similar to <a href="https://code.google.com/p/donorsim/">donorsim</a>.</p>
 <p>convert pos in SimRef to Ref</p>
 <pre><code>if simPos in non_eventRegion:
     refPos = RefStart -(SimStart - simPos)
@@ -138,34 +139,34 @@ if simPos in eventRegion:
 <thead>
 <tr>
 <th align="left">ID</th>
-<th>Description</th>
+<th align="left">Description</th>
 <th>Src</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">1</td>
-<td>VCF to variants format</td>
+<td align="left">VCF to variants format</td>
 <td>[VCF2DSM.py]</td>
 </tr>
 <tr>
 <td align="left">2</td>
-<td>ref + variants ===&gt; sim_genome + sim_ann</td>
+<td align="left">ref + variants ===&gt; sim_genome + sim_ann</td>
 <td>[build_genome.py]</td>
 </tr>
 <tr>
 <td align="left">3</td>
-<td>split sim_genome into reads</td>
+<td align="left">split sim_genome into reads</td>
 <td>[wgsim]</td>
 </tr>
 <tr>
 <td align="left">4</td>
-<td>replace sim_genome pos in read name with ref pos</td>
+<td align="left">replace sim_genome pos in read name with ref pos</td>
 <td>[simPos2Ref.py]</td>
 </tr>
 <tr>
 <td align="left">5</td>
-<td>check whether ref pos is correct</td>
+<td align="left">check whether ref pos is correct</td>
 <td>[checkAnswer.py]</td>
 </tr>
 </tbody>
