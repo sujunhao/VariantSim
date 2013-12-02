@@ -26,9 +26,9 @@ if __name__ == '__main__':
 			VT_size = 1
 			VT_name = 'SNV'
 			GT=words[9].split(':')[0]
-			if len(GT) ==1 or GT == '1|1': #haploid chrom or diploid with HOM
+			if len(GT) ==1 or GT == '1|1': #haploid or homozygous diploid
 				hom_het = 'HOM' #fix me 
-			elif GT == '0|1' or GT == '1|0':#diploid with HET
+			elif GT == '0|1' or GT == '1|0':#heterozygous diploid 
 				hom_het = 'HET'
 			else:
 				print >>sys.stderr, '>>genotype Error'
@@ -43,9 +43,9 @@ if __name__ == '__main__':
 				pos_end = pos_start+len(words[3])
 				VT_size =len(words[3]) -1
 				VT_name = 'DEL'
-				if len(GT) ==1 or GT == '1|1': #haploid chrom or diploid with HOM
+				if len(GT) ==1 or GT == '1|1': #haploid or homozygous diploid
 					hom_het = 'HOM' #fix me 
-				elif GT == '0|1' or GT == '1|0':#diploid with HET
+				elif GT == '0|1' or GT == '1|0':#heterozygous diploid 
 					hom_het = 'HET'
 				else:
 					print >>sys.stderr, '>>genotype Error'
@@ -57,9 +57,9 @@ if __name__ == '__main__':
 				pos_end = pos_start+1
 				VT_size =len(words[4]) -1
 				VT_name = 'INS'
-				if len(GT) ==1 or GT == '1|1': #haploid chrom or diploid with HOM
+				if len(GT) ==1 or GT == '1|1': #haploid or homozygous diploid
 					hom_het = 'HOM' #fix me 
-				elif GT == '0|1' or GT == '1|0':#diploid with HET
+				elif GT == '0|1' or GT == '1|0':#heterozygous diploid
 					hom_het = 'HET'
 				else:
 					print >>sys.stderr, '>>genotype Error'

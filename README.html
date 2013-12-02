@@ -122,16 +122,13 @@ body{font-size:16px;}
 }
 </style><title>README</title></head><body><h1 id="1-introduction">1. Introduction</h1>
 <p>It's a read simulate tookit.
-The basic idea is similar to <a href="https://code.google.com/p/donorsim/">donorsim</a>.</p>
-<p>convert pos in SimRef to Ref</p>
-<pre><code>if simPos in non_eventRegion:
-    refPos = RefStart -(SimStart - simPos)
-if simPos in eventRegion:
-    if event == DEL:
-        refPos = LastRefEnd
-    elif event == INS:
-        refPos = LastRefEnd
-</code></pre>
+The basic idea comes from <a href="https://code.google.com/p/donorsim/">donorsim</a>.</p>
+<p>Input:  original genome and VCF. <br/>
+Output: simulate reads.<br/>
+    1. original genome
+    2. add variants(SNP/Indel) from variants.txt(converted from VCF) to original genome in order to get a simulate genome
+    3. split simulate genome into simulate reads by wgsim <br />
+    4. convert simulate position coordinate to original position coordinate</p>
 <h1 id="2-tools">2. Tools</h1>
 <p>Tools provided in this tookit.</p>
 <h2 id="21-main-tools">2.1 Main tools</h2>
@@ -168,6 +165,16 @@ if simPos in eventRegion:
 <td align="left">5</td>
 <td align="left">check whether ref pos is correct</td>
 <td>[checkAnswer.py]</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">divide variants doc into two files and each file respents one copy</td>
+<td>[diploid.py]</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">move chrom and pos in read.aln(for art only) to ans file</td>
+<td>[artAnstoSimAns.py]</td>
 </tr>
 </tbody>
 </table>
