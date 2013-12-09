@@ -2,6 +2,9 @@ usage = 'filter_variants.py <Var>'
 
 import sys
 if __name__ == '__main__':
+    if len(sys.argv) < 2:
+	print >>sys.stderr, usage
+	sys.exit(1)
     fp = open(sys.argv[1], 'r')
     last_chrom = None
     last_pos0 = None

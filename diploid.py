@@ -5,8 +5,8 @@ import sys
 
 def diploid(variantsFileName, diploidFilePrefix):
 	fpVariants = open(variantsFileName, 'r')
-	fpDiploid0 = open(diploidFilePrefix+'.1', 'w')
-	fpDiploid1 = open(diploidFilePrefix+'.2', 'w')
+	fpDiploid0 = open(diploidFilePrefix+'.A', 'w')
+	fpDiploid1 = open(diploidFilePrefix+'.a', 'w')
 	for line in fpVariants:
 		line = line.strip()
 		words = line.split('\t')

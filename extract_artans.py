@@ -31,8 +31,8 @@ if __name__ == '__main__':
 	if len(sys.argv) < 3:
 		print >>sys.stderr, usage
 		sys.exit(1)
-	fp1 = open(sys.argv, 'r')
-	fp2 = open(sys.argv, 'r')
+	fp1 = open(sys.argv[1], 'r')
+	fp2 = open(sys.argv[2], 'r')
 	#read header
 	h1 = read_header(fp1)
 	h2 = read_header(fp2)

@@ -1,8 +1,8 @@
-usage ='%VCF2DSM.py <file.vcf>'
+usage ='VCF2DSM.py <file.vcf>'
 import sys
 if __name__ == '__main__':
 	if len(sys.argv) < 2:
-		print >>sys.stderr, 'CMD ERROR!'
+		#print >>sys.stderr, 'CMD ERROR!'
 		print >>sys.stderr, usage
 		sys.exit(1)
 	fp = open(sys.argv[1])
