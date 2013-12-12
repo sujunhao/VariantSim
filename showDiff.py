@@ -26,19 +26,21 @@ def diffSeq(line, fnRef, fnSim):
     fpRef.close()
     fpSim.close()
 
-fnRef = './DonorSim_1.2/Demo/chr1_hg18_100000_lines.fa'
-fnSim = 'test.sim_genome.fa'
+#fnRef = './DonorSim_1.2/Demo/chr1_hg18_100000_lines.fa'
+#fnSim = 'test.sim_genome.fa'
 
-usage = 'showDiff <sim_ann>'
+usage = 'showDiff <sim_ann> <fn_ref> <fn_sim>'
 import sys 
 if __name__ == '__main__':
     #print variant region seq in Ref and SimGenome
     #
+    
     if len(sys.argv) <2 :
         print usage
         sys.exit(1)
     
-   
+    fnRef = sys.argv[2]
+    fnSim = sys.argv[3]
     fp = open(sys.argv[1])
     for line in  fp:
         print '=================================='

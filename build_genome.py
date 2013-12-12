@@ -71,6 +71,8 @@ if __name__ == '__main__':
             if len(line) == 0:
                 break
             cur_var = var(line)
+        sim_genome += seq[non_variant_region_start-1:]
+        sim_genome_len = len(sim_genome)
         #output sim genome 70 chars per line
         print >>fp_sim_genome, '>'+chrom
         i = 0

@@ -161,8 +161,8 @@ if __name__ == '__main__':
             print >>fp_out_r1, seq
         tot_num += 1
         if tot_num % 10000 == 0:
-            print >>sys.stderr, '%d reads has been converted' % (tot_num)
-    print >>sys.stderr, '%d reads has been converted in file %s' %\
+            print >>sys.stderr, '%d reads have been converted' % (tot_num)
+    print >>sys.stderr, '%d reads have been converted in file %s' %\
                         (tot_num, sys.argv[1])
     fp_simPos.close()
 
@@ -189,8 +189,8 @@ if __name__ == '__main__':
             print >>fp_out_r2, seq
         tot_num += 1
         if tot_num % 10000 == 0:
-            print >>sys.stderr, '%d reads has been converted' % (tot_num)
-    print >>sys.stderr, '%d reads has been converted in file %s' %\
+            print >>sys.stderr, '%d reads have been converted' % (tot_num)
+    print >>sys.stderr, '%d reads have been converted in file %s' %\
                         (tot_num, sys.argv[2])
     fp_simPos.close()
 
