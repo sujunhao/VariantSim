@@ -95,12 +95,12 @@ def simPos2Ref( chrom, posInSim,
                 pass
             #DEL
             elif posSimEndVec[i-1] - posSimStartVec[i-1] == 1 and\
-                    posRefEndVec[i-1] - posRefStartVec[i-1] > 2:
+                    posRefEndVec[i-1] - posRefStartVec[i-1] > 1:
                 print >>sys.stderr, 'Pos shouldn\'t be in DEL region'
                 sys.exit(1)
             #INS
             elif posRefEndVec[i-1] - posRefStartVec[i-1] == 1 and\
-                    posSimEndVec[i-1] - posSimStartVec[i-1] > 2:
+                    posSimEndVec[i-1] - posSimStartVec[i-1] > 1:
                 eventPosInRef = posRefEndVec[i-1]
                 eventPosInSim = posSimEndVec[i-1]
                 ret_pos = eventPosInRef - (eventPosInSim - posInSim)
