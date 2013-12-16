@@ -48,12 +48,12 @@ if __name__ == '__main__':
 		if chrom1 != chrom2:
 			print >>sys.stderr, '[Error] chrom not match'
 			sys.exit()
-		pos1, pos2 = int(pos1), int(pos2)
+		pos1, pos2 = int(pos1)+1, int(pos2)+1
 		if strand1 =='+' and strand2 =='-':
-			pos2 = h2.chromMap[chrom2] - pos2+1+h2.readLen-1
+			pos2 = h2.chromMap[chrom2] - pos2+1
 			print '%s\t%d\t%d'%(chrom1, pos1, pos2)
 		else:
-			pos1 = h1.chromMap[chrom1] - pos1+1+h1.readLen-1
+			pos1 = h1.chromMap[chrom1] - pos1+1
 			print '%s\t%s\t%d'%(chrom1, pos2, pos1)
 
 	fp1.close()
