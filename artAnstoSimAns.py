@@ -20,9 +20,9 @@ if __name__ == '__main__':
 			print >>sys.stderr, '[ERROR]chrom not match!'
 			sys.exit(1)
 		if int(pos1) < int(pos2):
-			print '%s\t%s\t%d'%(chrom1, pos1, int(pos2)+ReadLen-1)
+			print '%s\t%s\t%d'%(chrom1, pos1+1, int(pos2)+ReadLen-1+1)
 		else:
-			print '%s\t%s\t%d'%(chrom1, pos1, int(pos2)+ReadLen-1)
+			print '%s\t%s\t%d'%(chrom1, pos1+1, int(pos2)+ReadLen-1+1)
 
 	fp1.close()
 	fp2.close()

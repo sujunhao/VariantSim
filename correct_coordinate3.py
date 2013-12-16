@@ -18,6 +18,9 @@ def simPos2Ref( chrom, posInSim,
                 posSimStart, posSimEnd, 
                 fp_answer):
     '''convert pos in simulate genome coord to orignal genome coord'''
+    
+    if chrom not in posSimStart:
+        return posInSim
     posSimStartVec = posSimStart[chrom]
     posSimEndVec = posSimEnd[chrom]
     posRefStartVec = posRefStart[chrom]
